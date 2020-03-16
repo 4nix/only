@@ -21,3 +21,10 @@ func AddGroup(ctx iris.Context) {
 
 	admin.AddGroup(name, config)
 }
+
+func GetGroup(ctx iris.Context) {
+	ID, _ := ctx.Params().GetInt("id")
+	res := admin.GetGroup(ID)
+
+	ctx.JSON(res)
+}

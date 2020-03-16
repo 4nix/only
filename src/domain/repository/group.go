@@ -9,7 +9,7 @@ type GroupRepo struct {
 }
 
 func (repository GroupRepo) Add(sName string, sConfig string) int64 {
-	groupDao := dao.NewNoseGroupDao()
+	groupDao := dao.NoseGroup{}
 	// sConfig, _ := json.Marshal(mConfig)
 
 	iID, _ := groupDao.Add(sName, sConfig)
@@ -17,16 +17,16 @@ func (repository GroupRepo) Add(sName string, sConfig string) int64 {
 	return iID
 }
 
-func (repository GroupRepo) Find(iID int64) interface{} {
-	groupDao := dao.NewNoseGroupDao()
-	oGroup := groupDao.Find(iID)
+func (repository GroupRepo) Find(iID int) interface{} {
+	groupDao := dao.NoseGroup{}
+	oGroup := groupDao.Find(int64(iID))
 
 	return oGroup
 }
 
-func (repository GroupRepo) Remove(iID int64) bool {
-	groupDao := dao.NewNoseGroupDao()
-	iRowAffected, _ := groupDao.Remove(iID)
+func (repository GroupRepo) Remove(iID int) bool {
+	groupDao := dao.NoseGroup{}
+	iRowAffected, _ := groupDao.Remove(int64(iID))
 
 	if iRowAffected > 0 {
 		return true

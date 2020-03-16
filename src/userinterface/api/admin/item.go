@@ -21,3 +21,10 @@ func AddItem(ctx iris.Context) {
 
 	admin.AddItem(sName, sContent, sConfig, iModeID, iGroupID, iRelateID)
 }
+
+func GetItem(ctx iris.Context) {
+	ID, _ := ctx.Params().GetInt("id")
+	res := admin.GetItem(ID)
+
+	ctx.JSON(res)
+}

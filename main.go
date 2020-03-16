@@ -19,6 +19,9 @@ func main() {
 	app.Post("/admin/group", admin.AddGroup)
 	app.Post("/admin/item", admin.AddItem)
 
+	app.Get("/admin/group/{id:int}", admin.GetGroup)
+	app.Get("/admin/item/{id:int}", admin.GetItem)
+
 	// Listens and serves incoming http requests
 	// on http://localhost:8080.
 	app.Run(iris.Addr(":9999"))
