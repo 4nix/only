@@ -20,9 +20,16 @@ func (repo ItemRepo) Find(iID int) interface{} {
 	return oItem
 }
 
-func (repo ItemRepo) GetList(iGID int) interface{} {
+func (repo ItemRepo) GetListByGroupID(iGroupID int) interface{} {
 	itemDao := dao.NoseItem{}
-	oItem := itemDao.FindByGID(int64(iGID))
+	oItem := itemDao.FindByGroupID(int64(iGroupID))
+
+	return oItem
+}
+
+func (repo ItemRepo) GetListByRelateID(iGroupID int, iRelateID int) interface{} {
+	itemDao := dao.NoseItem{}
+	oItem := itemDao.FindByRelateID(int64(iGroupID), int64(iRelateID))
 
 	return oItem
 }

@@ -2,6 +2,8 @@ package admin
 
 import (
 	"only/src/application/apps/admin"
+	"only/src/domain/service"
+	"only/src/userinterface/api"
 
 	"github.com/kataras/iris"
 )
@@ -26,5 +28,21 @@ func GetItem(ctx iris.Context) {
 	ID, _ := ctx.Params().GetInt("id")
 	res := admin.GetItem(ID)
 
-	ctx.JSON(res)
+	api.Success(ctx, res)
+
+	// api.Error(ctx, "测试", 22)
+}
+
+func GetItemList(ctx iris.Context) {
+	iGroupID, _ := ctx.Params().GetInt("gid")
+	iRelateID, _ := ctx.Params().GetInt("rid")
+
+	var res interface{}
+	if iRelateID >= 0 {
+		res = service.GetItemListByRelateID(iGroupID, iRelateID)
+	} else {
+		res = service.GetItemListByGroupID(iGroupID)
+	}
+
+	api.Success(ctx, res)
 }

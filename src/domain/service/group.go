@@ -13,13 +13,8 @@ func GetGroup(ID int) interface{} {
 	return groupRepo.Find(ID)
 }
 
-func AddItem(sName string, sContent string, sConfig string, iModeID int, iGroupID int, iRelateID int) int {
-	itemRepo := repository.ItemRepo{}
-	return itemRepo.Add(sName, sContent, sConfig, iModeID, iGroupID, iRelateID)
-}
+func GetGroupList() interface{} {
+	groupRepo := repository.GroupRepo{}
 
-func GetItem(ID int) interface{} {
-	itemRepo := repository.ItemRepo{}
-
-	return itemRepo.Find(ID)
+	return groupRepo.FindAll()
 }

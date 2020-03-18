@@ -2,12 +2,12 @@
 package dao
 
 type NoseGroup struct {
-	ID     int64
-	Name   string
-	Config string
-	Ctime  string
-	Utime  string
-	IsDel  int `db:"is_del"`
+	ID     int64  `json:"id"`
+	Name   string `json:"name"`
+	Config string `json:"config"`
+	Ctime  string `json:"ctime"`
+	Utime  string `json:"utime"`
+	IsDel  int    `db:"is_del" json:"is_del"`
 }
 
 func (nose *NoseGroup) Add(sName string, sConfig string) (int64, error) {
@@ -20,6 +20,13 @@ func (nose *NoseGroup) Add(sName string, sConfig string) (int64, error) {
 func (nose *NoseGroup) Find(iID int64) *NoseGroup {
 	oNose := NoseGroup{}
 	DB.Get(&oNose, "SELECT * FROM nose_group WHERE id = ?", iID)
+
+	return &oNose
+}
+
+func (nose *NoseGroup) FindAll() *[]NoseGroup {
+	oNose := []NoseGroup{}
+	DB.Select(&oNose, "SELECT * FROM nose_group")
 
 	return &oNose
 }

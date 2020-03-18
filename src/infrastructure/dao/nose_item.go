@@ -2,16 +2,16 @@
 package dao
 
 type NoseItem struct {
-	ID       int64
-	Name     string
-	Content  string
-	Config   string
-	ModeID   int `db:"mode_id"`
-	GroupID  int `db:"group_id"`
-	RelateID int `db:"relate_id"`
-	Ctime    string
-	Utime    string
-	IsDel    int `db:"is_del"`
+	ID       int64  `json:"id"`
+	Name     string `json:"name"`
+	Content  string `json:"content"`
+	Config   string `json:"config"`
+	ModeID   int    `db:"mode_id" json:"mode_id"`
+	GroupID  int    `db:"group_id" json:"group_id"`
+	RelateID int    `db:"relate_id" json:"relate_id"`
+	Ctime    string `json:"ctime"`
+	Utime    string `json:"utime"`
+	IsDel    int    `db:"is_del" json:"is_del"`
 }
 
 func (nose *NoseItem) Add(sName string, sContent string, sConfig string, iModeID int, iGroupID int, iRelateID int) (int64, error) {
@@ -28,9 +28,16 @@ func (nose *NoseItem) Find(iID int64) *NoseItem {
 	return &oNose
 }
 
-func (nose *NoseItem) FindByGID(iGID int64) *[]NoseItem {
+func (nose *NoseItem) FindByGroupID(iGID int64) *[]NoseItem {
 	oNoses := []NoseItem{}
-	DB.Get(&oNoses, "SELECT * FROM nose_item WHERE group_id = ?", iGID)
+	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE group_id = ?", iGID)
+
+	return &oNoses
+}
+
+func (nose *NoseItem) FindByRelateID(iGroupID int64, iRelateID int64) *[]NoseItem {
+	oNoses := []NoseItem{}
+	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE group_id = ? AND relate_id = ?", iGroupID, iRelateID)
 
 	return &oNoses
 }

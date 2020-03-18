@@ -24,6 +24,13 @@ func (repository GroupRepo) Find(iID int) interface{} {
 	return oGroup
 }
 
+func (repository GroupRepo) FindAll() interface{} {
+	groupDao := dao.NoseGroup{}
+	oGroup := groupDao.FindAll()
+
+	return oGroup
+}
+
 func (repository GroupRepo) Remove(iID int) bool {
 	groupDao := dao.NoseGroup{}
 	iRowAffected, _ := groupDao.Remove(int64(iID))
