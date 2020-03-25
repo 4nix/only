@@ -22,9 +22,9 @@ func main() {
 
 	app.WrapRouter(corsWrapper)
 
-	// app.Handle("GET", "/ping", func(ctx iris.Context) {
-	// 	ctx.JSON(iris.Map{"message": "ponga"})
-	// })
+	app.Handle("GET", "/ping", func(ctx iris.Context) {
+		ctx.JSON(iris.Map{"message": "ponga"})
+	})
 
 	app.Post("/admin/group", admin.AddGroup)
 	app.Get("/admin/group/{id:int}", admin.GetGroup)
