@@ -1,6 +1,8 @@
 // Package dao nose_group 数据组表
 package dao
 
+import "fmt"
+
 type NoseGroup struct {
 	ID     int64  `json:"id"`
 	Name   string `json:"name"`
@@ -12,7 +14,8 @@ type NoseGroup struct {
 
 func (nose *NoseGroup) Add(sName string, sConfig string) (int64, error) {
 	sql := `INSERT INTO nose_group (name, config) VALUES (?, ?)`
-	res, _ := DB.Exec(sql, sName, sConfig)
+	res, err := DB.Exec(sql, sName, sConfig)
+	fmt.Println(err)
 
 	return res.LastInsertId()
 }
@@ -26,7 +29,8 @@ func (nose *NoseGroup) Find(iID int64) *NoseGroup {
 
 func (nose *NoseGroup) FindAll() *[]NoseGroup {
 	oNose := []NoseGroup{}
-	DB.Select(&oNose, "SELECT * FROM nose_group")
+	err := DB.Select(&oNose, "SELECT * FROM nose_group")
+	fmt.Println(err)
 
 	return &oNose
 }
