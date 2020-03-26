@@ -33,6 +33,7 @@ func init() {
 
 	DB, err = sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
 
+	fmt.Println(conf)
 	fmt.Println(err)
 	fmt.Println(DB)
 	fmt.Println(conf)
