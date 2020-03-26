@@ -1,7 +1,7 @@
 [dev]
-host = "172.17.0.1"
+host = "localhost"
 user = "root"
-pass = ""
+pass = "12345678"
 database = "only"
 
 

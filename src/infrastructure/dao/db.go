@@ -25,12 +25,13 @@ type Config struct {
 
 // DB 数据连接对象
 var DB *sqlx.DB
+var err error
 
 func init() {
 	conf := new(Config)
 	toml.DecodeFile("src/application/config/db.toml", &conf)
 
-	DB, err := sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
+	DB, err = sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
 
 	fmt.Println(err)
 	fmt.Println(DB)
