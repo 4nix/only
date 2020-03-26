@@ -2,6 +2,8 @@
 package dao
 
 import (
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 
@@ -28,7 +30,11 @@ func init() {
 	conf := new(Config)
 	toml.DecodeFile("src/application/config/db.toml", &conf)
 
-	DB, _ = sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
+	DB, err := sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
+
+	fmt.Println(err)
+	fmt.Println(DB)
+	fmt.Println(conf)
 
 	// p := Groups{}
 	// DB.Get(&p, "SELECT * FROM nose_group")
