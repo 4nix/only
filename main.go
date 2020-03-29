@@ -28,11 +28,13 @@ func main() {
 
 	app.Post("/admin/group", admin.AddGroup)
 	app.Get("/admin/group/{id:int}", admin.GetGroup)
-	app.Get("/admin/grouplist", admin.GetGroupList)
 
 	app.Post("/admin/item", admin.AddItem)
 	app.Get("/admin/item/{id:int}", admin.GetItem)
-	app.Get("/admin/itemlist/{gid:int}/{rid:int}", admin.GetItemList)
+
+	app.Get("/admin/list", admin.GetGroupList)
+	app.Get("/admin/list/{gid:int}", admin.GetItemList)
+	app.Get("/admin/list/{gid:int}/{rid:int}", admin.GetItemList)
 
 	// Listens and serves incoming http requests
 	// on http://localhost:8080.
