@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"fmt"
 	"only/src/application/apps/admin"
 	"only/src/domain/service"
 	"only/src/userinterface/api"
@@ -12,9 +13,9 @@ func AddItem(ctx iris.Context) {
 	sName := ctx.PostValue("name")
 	sContent := ctx.PostValueTrim("content")
 	sConfig := ctx.PostValueDefault("config", "")
-	iModeID := ctx.PostValueIntDefault("mode_id", 0)
-	iGroupID, err := ctx.PostValueInt("group_id")
-	iRelateID := ctx.PostValueIntDefault("relate_id", 0)
+	iModeID := ctx.PostValueIntDefault("mid", 0)
+	iGroupID, err := ctx.PostValueInt("gid")
+	iRelateID := ctx.PostValueIntDefault("rid", 0)
 	// fmt.Println(id)
 
 	if err != nil {
@@ -35,13 +36,16 @@ func GetItem(ctx iris.Context) {
 
 func GetItemList(ctx iris.Context) {
 	iGroupID, _ := ctx.Params().GetInt("gid")
-	iRelateID, _ := ctx.Params().GetInt("rid")
+	iRelateID, err := ctx.Params().GetInt("rid")
+
+	fmt.Println(iRelateID)
+	fmt.Println(err)
 
 	var res interface{}
-	if iRelateID >= 0 {
+	if err == nil {
 		res = service.GetItemListByRelateID(iGroupID, iRelateID)
 	} else {
-		res = service.GetItemListByGroupID(iGroupID)
+		res = service.GetItemListByRelateID(iGroupID, 0)
 	}
 
 	api.Success(ctx, res)
