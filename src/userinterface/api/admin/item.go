@@ -50,3 +50,10 @@ func GetItemList(ctx iris.Context) {
 
 	api.Success(ctx, res)
 }
+
+func RemoveItem(ctx iris.Context) {
+	ID, _ := ctx.Params().GetInt("id")
+	res := service.RemoveItem(ID)
+
+	api.Success(ctx, res)
+}
