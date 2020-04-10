@@ -24,3 +24,9 @@ func GetItemListByRelateID(iGroupID int, iRelateID int) interface{} {
 
 	return itemRepo.GetListByRelateID(iGroupID, iRelateID)
 }
+
+func RemoveItem(ID int) interface{} {
+	itemRepo := repository.ItemRepo{}
+
+	return itemRepo.Remove(ID)
+}

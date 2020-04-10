@@ -11,7 +11,6 @@ import (
 func AddGroup(ctx iris.Context) {
 	name := ctx.PostValue("name")
 	config := ctx.PostValue("config")
-	// fmt.Println(id)
 
 	s := map[string]string{"aaa": "ccc"}
 
@@ -34,6 +33,13 @@ func GetGroup(ctx iris.Context) {
 
 func GetGroupList(ctx iris.Context) {
 	res := service.GetGroupList()
+
+	api.Success(ctx, res)
+}
+
+func RemoveGroup(ctx iris.Context) {
+	ID, _ := ctx.Params().GetInt("id")
+	res := service.RemoveGroup(ID)
 
 	api.Success(ctx, res)
 }
