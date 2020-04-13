@@ -6,6 +6,8 @@ import (
 
 	"net/http"
 	"only/src/userinterface/api/admin"
+	"only/src/userinterface/api/darkfood"
+	"only/src/userinterface/api/yinyangshi"
 
 	"github.com/kataras/iris"
 	"github.com/rs/cors"
@@ -39,6 +41,13 @@ func main() {
 	app.Get("/admin/list", admin.GetGroupList)
 	app.Get("/admin/list/{gid:int}", admin.GetItemList)
 	app.Get("/admin/list/{gid:int}/{rid:int}", admin.GetItemList)
+
+	app.Get("/yinyangshi/wenda", yinyangshi.GetWenDaList)
+	app.Get("/yinyangshi/xuanshang", yinyangshi.GetXuanshangList)
+	app.Get("/yinyangshi/shenmi", yinyangshi.GetShenmiList)
+
+	app.Get("/darkfood/list", darkfood.GetList)
+	app.Get("/darkfood/food/{id:int}", darkfood.GetDetail)
 
 	// Listens and serves incoming http requests
 	// on http://localhost:8080.
