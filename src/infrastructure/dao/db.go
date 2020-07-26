@@ -36,7 +36,7 @@ func init() {
 	fmt.Println(conf)
 	fmt.Println(err)
 	fmt.Println(DB)
-	fmt.Println(conf)
+	fmt.Println(conf.Dev.Host)
 
 	// p := Groups{}
 	// DB.Get(&p, "SELECT * FROM nose_group")
