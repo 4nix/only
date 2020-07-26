@@ -30,6 +30,7 @@ func (nose *NoseItem) Find(iID int64) *NoseItem {
 
 func (nose *NoseItem) FindByGroupID(iGID int64) *[]NoseItem {
 	oNoses := []NoseItem{}
+
 	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE group_id = ?", iGID)
 
 	return &oNoses
@@ -37,6 +38,7 @@ func (nose *NoseItem) FindByGroupID(iGID int64) *[]NoseItem {
 
 func (nose *NoseItem) FindByRelateID(iGroupID int64, iRelateID int64) *[]NoseItem {
 	oNoses := []NoseItem{}
+
 	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE group_id = ? AND relate_id = ?", iGroupID, iRelateID)
 
 	return &oNoses
@@ -47,4 +49,12 @@ func (nose *NoseItem) Remove(iID int64) (int64, error) {
 	res, _ := DB.Exec(sql, iID)
 
 	return res.RowsAffected()
+}
+
+func (nose *NoseItem) FetchAll(conditions string, params ...interface{}) *[]NoseItem {
+	oNoses := []NoseItem{}
+
+	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE "+conditions, params...)
+
+	return &oNoses
 }

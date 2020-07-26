@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"only/src/userinterface/api/admin"
 	"only/src/userinterface/api/darkfood"
+	"only/src/userinterface/api/scp"
 	"only/src/userinterface/api/yinyangshi"
 
 	"github.com/kataras/iris"
@@ -48,6 +49,8 @@ func main() {
 
 	app.Get("/darkfood/list", darkfood.GetList)
 	app.Get("/darkfood/food/{id:int}", darkfood.GetDetail)
+
+	app.Get("/scp/list", scp.GetList)
 
 	// Listens and serves incoming http requests
 	// on http://localhost:8080.
