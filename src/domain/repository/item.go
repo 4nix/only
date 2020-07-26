@@ -44,3 +44,9 @@ func (repo ItemRepo) Remove(iID int) bool {
 
 	return false
 }
+
+func (repo ItemRepo) FetchAll(condition string, params ...interface{}) interface{} {
+	itemDao := dao.NoseItem{}
+
+	return itemDao.FetchAll(condition, params...)
+}

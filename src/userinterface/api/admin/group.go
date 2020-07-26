@@ -32,7 +32,10 @@ func GetGroup(ctx iris.Context) {
 }
 
 func GetGroupList(ctx iris.Context) {
-	res := service.GetGroupList()
+	res := make(map[string]interface{})
+	list := service.GetGroupList()
+
+	res["list"] = list
 
 	api.Success(ctx, res)
 }
