@@ -37,6 +37,7 @@ func main() {
 
 	app.Post("/admin/item", admin.AddItem)
 	app.Get("/admin/item/{id:int}", admin.GetItem)
+	app.Put("/admin/item/{id:int}", admin.EditItem)
 	app.Delete("/admin/item/{id:int}", admin.RemoveItem)
 
 	app.Get("/admin/list", admin.GetGroupList)

@@ -44,6 +44,7 @@ func (nose *NoseItem) FindByRelateID(iGroupID int64, iRelateID int64) *[]NoseIte
 	return &oNoses
 }
 
+// Remove 删除
 func (nose *NoseItem) Remove(iID int64) (int64, error) {
 	sql := `DELETE FROM nose_item WHERE id = ?`
 	res, _ := DB.Exec(sql, iID)
@@ -51,10 +52,20 @@ func (nose *NoseItem) Remove(iID int64) (int64, error) {
 	return res.RowsAffected()
 }
 
+// FetchAll 查询
 func (nose *NoseItem) FetchAll(conditions string, params ...interface{}) *[]NoseItem {
 	oNoses := []NoseItem{}
 
 	DB.Select(&oNoses, "SELECT * FROM nose_item WHERE "+conditions, params...)
 
 	return &oNoses
+}
+
+// Count 统计
+func (nose *NoseItem) Count(conditions string, params ...interface{}) int {
+	var count int
+
+	DB.Get(&count, "SELECT count(*) FROM nose_item WHERE "+conditions, params...)
+
+	return count
 }
