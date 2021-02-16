@@ -45,8 +45,16 @@ func (repo ItemRepo) Remove(iID int) bool {
 	return false
 }
 
+// FetchAll 查找
 func (repo ItemRepo) FetchAll(condition string, params ...interface{}) interface{} {
 	itemDao := dao.NoseItem{}
 
 	return itemDao.FetchAll(condition, params...)
+}
+
+// Count 统计
+func (repo ItemRepo) Count(condition string, params ...interface{}) int {
+	itemDao := dao.NoseItem{}
+
+	return itemDao.Count(condition, params...)
 }

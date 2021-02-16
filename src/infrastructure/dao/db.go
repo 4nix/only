@@ -2,6 +2,7 @@
 package dao
 
 import (
+	"flag"
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -10,8 +11,8 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// Dbconfig 数据库配置
-type Dbconfig struct {
+// MySQLconfig 数据库配置
+type MySQLconfig struct {
 	User     string
 	Pass     string
 	Database string
@@ -20,7 +21,7 @@ type Dbconfig struct {
 
 // Config Toml 配置
 type Config struct {
-	Dev Dbconfig
+	Mysql MySQLconfig
 }
 
 // DB 数据连接对象
@@ -28,15 +29,24 @@ var DB *sqlx.DB
 var err error
 
 func init() {
-	conf := new(Config)
-	toml.DecodeFile("src/application/config/db.toml", &conf)
+	var env = flag.String("env", "", "环境变量")
+	flag.Parse()
 
-	DB, err = sqlx.Open("mysql", conf.Dev.User+":"+conf.Dev.Pass+"@tcp("+conf.Dev.Host+":3306)/"+conf.Dev.Database)
+	conf := new(Config)
+	if *env == "production" {
+		toml.DecodeFile("src/application/config/db.toml", &conf)
+	} else {
+		toml.DecodeFile("src/application/config/db_dev.toml", &conf)
+	}
+
+	DB, err = sqlx.Open("mysql", conf.Mysql.User+":"+conf.Mysql.Pass+"@tcp("+conf.Mysql.Host+":3306)/"+conf.Mysql.Database)
 
 	fmt.Println(conf)
 	fmt.Println(err)
 	fmt.Println(DB)
-	fmt.Println(conf.Dev.Host)
+	fmt.Println(conf.Mysql.Host)
+
+	fmt.Println("-env:", *env)
 
 	// p := Groups{}
 	// DB.Get(&p, "SELECT * FROM nose_group")
